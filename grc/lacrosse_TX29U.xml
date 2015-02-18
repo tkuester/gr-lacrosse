@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<block>
+  <name>TX29U</name>
+  <key>lacrosse_TX29U</key>
+  <category>lacrosse</category>
+  <import>import lacrosse</import>
+  <make>lacrosse.TX29U()</make>
+
+  <sink>
+    <name>in</name>
+    <type>message</type>
+  </sink>
+
+</block>
