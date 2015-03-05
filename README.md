@@ -9,15 +9,15 @@
 
 Packets are in the form of
 
-Access Code: 0x10 (First 2 MSB don't quite get sent)
-Preamble: 0xaaaaaaaa
-ID: 24 bits (Least sig. nibble seems to decrement on subsequent powerups)
-???: 4 bits
-Temp Scale: 4 bits
-Temp: 8 bits (Approx 0.06 C per bit)
-???: 8 bits
-Checksum: 8 bits
-Postamble?: 0xaa00
+ - Access Code: 0x10 (First 2 MSB don't quite get sent)
+ - Preamble: 0xaaaaaaaa
+ - ID: 24 bits (Least sig. nibble seems to decrement on subsequent powerups)
+ - ???: 4 bits
+ - Temp Scale: 4 bits
+ - Temp: 8 bits (Approx 0.06 C per bit)
+ - ???: 8 bits
+ - Checksum: 8 bits
+ - Postamble?: 0xaa00
 
 Checksum is [CRC-8-Dallas/Maxim](http://en.wikipedia.org/wiki/Cyclic_redundancy_check#Standards_and_common_use)
 
