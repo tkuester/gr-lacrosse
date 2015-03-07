@@ -2,6 +2,7 @@
 
 ## Requirements
  - [gr-reveng](http://github.com/tkuester/gr-reveng)
+ - [gr-mac](https://github.com/jmalsbury/gr-mac)
  - GNU Radio 3.7.2+ (Should work fine... only tested on 3.7.6)
  - python-crcmod
 
@@ -48,14 +49,17 @@ Checksum: 0xd1 [ OK ]
 
 ### Spoofing packets with a USRP B200
 
-This works intermittently. For now, I'm going to blame this on how
-GNU Radio's scheduler handles async packets. Definitely a TODO.
+This works intermittently. Using the burst tagger from gr-mac has dramatically
+improved reliability, although some temperatures don't want to print. The
+scale is also off... so 40.0 F shows up as 40.2 F.
 
 The La Crosse WS-9160U-IT looks for sensors the first ~2 minutes after boot.
 During this time, bcast.py will sporadically work and set the temperature.
 However, after the ~2 minute period, the receiver only listens at ~15 sec
 intervals. My guess is if you aren't transmitting exactly when it's
 listening, your packet gets dropped.
+
+Perhaps, at 1 minute, the station starts looking at 920 MHz... more later.
 
 ```
 cd ./apps

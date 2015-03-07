@@ -12,8 +12,10 @@ if len(sys.argv) != 2:
 temp_f = float(sys.argv[1])
 temp_c = (temp_f - 32) / 1.8
 
+# temp scale 6 is 25.5555555 C, or 80 F
+
 temp_scale = int((temp_c + 40.000001) / 10)
-temp_val = ((temp_c + 40) - (temp_scale * 10.0)) / 0.0646332607
+temp_val = ((temp_c + 40) - (temp_scale * 10.0)) / 0.0637037037
 temp_val = int(round(temp_val))
 
 print 'Temp C: %3.1f' % temp_c
@@ -25,9 +27,9 @@ print 'Packet:', str(dat).encode('hex')
 calc_checksum = crcmod.mkCrcFun(0x131, initCrc=0x3a, rev=False)
 csum = calc_checksum(str(dat))
 
-packet = bytearray([0x00] * 128 + [0x10] + [0xaa] * 4)
+packet = bytearray([0x10] + [0xaa] * 4)
 packet += dat
-packet += bytearray([csum] + [0xaa]*2 + [0x00] * 22)
+packet += bytearray([csum] + [0xaa]*2 + [0x00] * 2)
 
 cs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 cs.connect(('localhost', 52001))
