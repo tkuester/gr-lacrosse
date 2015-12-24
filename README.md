@@ -57,6 +57,18 @@ Checksum: 0x95 (149) [ crcmod not present ]
 ...
 ```
 
+### Monitoring the temperature sensor with a .cfile capture:
+
+If you have a capture you want to analyze, you can use the following program.
+The default setup expects the capture file to be tuned to 915 MHz, with a sample
+rate of 1 MSPS. These variables can be modified on the command line. Use
+`--help` to see more options.
+
+```
+cd ./apps
+./file_lacrosse.py -f <your_cfile>
+```
+
 ### Spoofing packets with a USRP B200
 
 This works intermittently. Using the burst tagger from gr-mac has dramatically
