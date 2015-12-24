@@ -1,10 +1,20 @@
 # GR-Lacrosse
 
+A sample GNU Radio based application for listening to a Lacrosse weather
+station with an RTL-SDR. The design is more intended to be intuitive to new
+users, instead of a tested and proven application.
+
+Example scripts are also provided for transmitting using an Ettus B200.
+
 ## Requirements
+ - GNU Radio 3.7.2+
+ - [gr-osmosdr](http://sdr.osmocom.org/trac/wiki/GrOsmoSDR)
  - [gr-reveng](http://github.com/tkuester/gr-reveng)
- - [gr-mac](https://github.com/jmalsbury/gr-mac) For transmitting
- - GNU Radio 3.7.2+ (Should work fine... only tested on 3.7.6)
- - python-crcmod (now optional)
+ - python-crcmod (now optional for reception)
+
+### For Transmitting
+ - [gr-mac](https://github.com/jmalsbury/gr-mac)
+ - [libuhd](http://files.ettus.com/manual/page_build_guide.html)
 
 ## Packet Structure
 
@@ -70,3 +80,11 @@ cd ./apps
 # over 915 MHz
 ./bcast.py 73.2
 ```
+
+## Getting this to work with other hardware!
+
+It shouldn't be too difficult to make hardware like the HackRF and bladeRF work
+with this radio as well. Look at `examples/temp_mon.grc` as a reference
+implementation. You may need to add gain control specific to your radio, or add
+an offset tune to avoid the DC Spike. Please submit a pull request if you get it
+working!
