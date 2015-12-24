@@ -120,7 +120,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(792, 187)</value>
+      <value>(656, 187)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -144,49 +144,6 @@
     </param>
   </block>
   <block>
-    <key>blocks_rotator_cc</key>
-    <param>
-      <key>alias</key>
-      <value></value>
-    </param>
-    <param>
-      <key>comment</key>
-      <value></value>
-    </param>
-    <param>
-      <key>affinity</key>
-      <value></value>
-    </param>
-    <param>
-      <key>_enabled</key>
-      <value>True</value>
-    </param>
-    <param>
-      <key>_coordinate</key>
-      <value>(368, 187)</value>
-    </param>
-    <param>
-      <key>_rotation</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>id</key>
-      <value>blocks_rotator_cc_0</value>
-    </param>
-    <param>
-      <key>maxoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>minoutbuf</key>
-      <value>0</value>
-    </param>
-    <param>
-      <key>phase_inc</key>
-      <value>2*3.14*125e3/samp_rate</value>
-    </param>
-  </block>
-  <block>
     <key>dc_blocker_xx</key>
     <param>
       <key>alias</key>
@@ -206,7 +163,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(616, 339)</value>
+      <value>(368, 379)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -257,7 +214,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(784, 353)</value>
+      <value>(536, 393)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -296,7 +253,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(400, 315)</value>
+      <value>(152, 355)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -390,7 +347,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(1056, 352)</value>
+      <value>(952, 393)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -437,7 +394,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(592, 139)</value>
+      <value>(400, 139)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -520,7 +477,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(632, 11)</value>
+      <value>(648, 43)</value>
     </param>
     <param>
       <key>gui_hint</key>
@@ -791,7 +748,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(192, 323)</value>
+      <value>(848, 163)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -850,7 +807,7 @@
     </param>
     <param>
       <key>_coordinate</key>
-      <value>(936, 307)</value>
+      <value>(704, 347)</value>
     </param>
     <param>
       <key>_rotation</key>
@@ -956,7 +913,7 @@
     </param>
     <param>
       <key>freq0</key>
-      <value>915.1e6</value>
+      <value>915e6</value>
     </param>
     <param>
       <key>gain_mode0</key>
@@ -2342,12 +2299,6 @@
     <sink_key>0</sink_key>
   </connection>
   <connection>
-    <source_block_id>blocks_rotator_cc_0</source_block_id>
-    <sink_block_id>low_pass_filter_0</sink_block_id>
-    <source_key>0</source_key>
-    <sink_key>0</sink_key>
-  </connection>
-  <connection>
     <source_block_id>dc_blocker_xx_0</source_block_id>
     <sink_block_id>digital_binary_slicer_fb_0</sink_block_id>
     <source_key>0</source_key>
@@ -2391,7 +2342,7 @@
   </connection>
   <connection>
     <source_block_id>rtlsdr_source_0</source_block_id>
-    <sink_block_id>blocks_rotator_cc_0</sink_block_id>
+    <sink_block_id>low_pass_filter_0</sink_block_id>
     <source_key>0</source_key>
     <sink_key>0</sink_key>
   </connection>
