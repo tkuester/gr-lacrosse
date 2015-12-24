@@ -1,12 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 ##################################################
-# Gnuradio Python Flow Graph
+# GNU Radio Python Flow Graph
 # Title: Rtl Lacrosse
-# Generated: Thu Mar  5 08:32:25 2015
+# Generated: Thu Dec 24 10:24:06 2015
 ##################################################
-
-# Call XInitThreads as the _very_ first thing.
-# After some Qt import, it's too late
 
 from gnuradio import analog
 from gnuradio import blocks
@@ -22,6 +19,7 @@ import math
 import osmosdr
 import reveng
 import time
+
 
 class rtl_lacrosse(gr.top_block):
 
@@ -62,10 +60,11 @@ class rtl_lacrosse(gr.top_block):
                 fractional_bw=None,
         )
         self.low_pass_filter_0 = filter.fir_filter_ccf(1, firdes.low_pass(
-        	1, samp_rate, 100e3, 50e3, firdes.WIN_HAMMING, 6.76))
+        	1, samp_rate, 200e3, 100e3, firdes.WIN_HAMMING, 6.76))
         self.lacrosse_TX29U_0 = lacrosse.TX29U()
         self.digital_clock_recovery_mm_xx_0 = digital.clock_recovery_mm_ff(4, 0.25*0.175*0.175, 0.5, 0.175, 0.005)
         self.digital_binary_slicer_fb_0 = digital.binary_slicer_fb()
+        self.dc_blocker_xx_0 = filter.dc_blocker_ff(32, True)
         self.blocks_rotator_cc_0 = blocks.rotator_cc(2*3.14*125e3/samp_rate)
         self.analog_quadrature_demod_cf_0 = analog.quadrature_demod_cf(1)
 
@@ -75,8 +74,9 @@ class rtl_lacrosse(gr.top_block):
         self.msg_connect((self.reveng_pattern_dump_0, 'out'), (self.lacrosse_TX29U_0, 'in'))    
         self.connect((self.analog_quadrature_demod_cf_0, 0), (self.rational_resampler_xxx_0, 0))    
         self.connect((self.blocks_rotator_cc_0, 0), (self.low_pass_filter_0, 0))    
+        self.connect((self.dc_blocker_xx_0, 0), (self.digital_binary_slicer_fb_0, 0))    
         self.connect((self.digital_binary_slicer_fb_0, 0), (self.reveng_pattern_dump_0, 0))    
-        self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.digital_binary_slicer_fb_0, 0))    
+        self.connect((self.digital_clock_recovery_mm_xx_0, 0), (self.dc_blocker_xx_0, 0))    
         self.connect((self.low_pass_filter_0, 0), (self.analog_quadrature_demod_cf_0, 0))    
         self.connect((self.rational_resampler_xxx_0, 0), (self.digital_clock_recovery_mm_xx_0, 0))    
         self.connect((self.rtlsdr_source_0, 0), (self.blocks_rotator_cc_0, 0))    
@@ -94,9 +94,10 @@ class rtl_lacrosse(gr.top_block):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 100e3, 50e3, firdes.WIN_HAMMING, 6.76))
         self.blocks_rotator_cc_0.set_phase_inc(2*3.14*125e3/self.samp_rate)
+        self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 200e3, 100e3, firdes.WIN_HAMMING, 6.76))
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
+
 
 if __name__ == '__main__':
     parser = OptionParser(option_class=eng_option, usage="%prog: [options]")
