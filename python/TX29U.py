@@ -19,10 +19,16 @@
 # Boston, MA 02110-1301, USA.
 # 
 
+import sys
+import datetime
 import numpy
 from gnuradio import gr
 import pmt
-import crcmod
+
+try:
+    import crcmod
+except ImportError:
+    crcmod = None
 
 class TX29U(gr.sync_block):
     """
@@ -36,7 +42,9 @@ class TX29U(gr.sync_block):
 
         self.message_port_register_in(pmt.intern('in'))
         self.set_msg_handler(pmt.intern('in'), self.handle_msg)
-        self.calc_checksum = crcmod.mkCrcFun(0x131, initCrc=0x3a, rev=False)
+
+        if crcmod is not None:
+            self.calc_checksum = crcmod.mkCrcFun(0x131, initCrc=0x3a, rev=False)
 
     def handle_msg(self, msg_pmt):
         msg = pmt.to_python(msg_pmt)
@@ -55,17 +63,22 @@ class TX29U(gr.sync_block):
         temp_c = -40 + (10 * temp_scale) + (temp * 0.0646332607)
         temp_f = temp_c * 1.8 + 32
 
-        print 'Packet:', str(bytez).encode('hex')
+        print datetime.datetime.now()
+        print 'Packet:  ', str(bytez).encode('hex')
         print
-        print 'ID?', str(dev_id).encode('hex')
-        print 'Cfg? 0x%02x (Temp Scale: %d)' % (cfg, cfg & 0x0f)
-        print 'Temp: 0x%02x (%d)' % (temp, temp)
-        print 'Humidity? 0x%02x (%d)' % (hum, hum)
-        print 'Checksum:', hex(csum),
-        if csum == self.calc_checksum(str(bytez[0:6])):
+        print 'ID?      ', str(dev_id).encode('hex')
+        print 'Cfg?      0x%02x (Temp Scale: %d)' % (cfg, cfg & 0x0f)
+        print 'Temp:     0x%02x (%3d)' % (temp, temp)
+        print 'Humidity? 0x%02x (%3d)' % (hum, hum)
+        print 'Checksum: 0x%02x (%3d)' % (csum, csum),
+
+        if crcmod is None:
+            print '[ crcmod not present ]'
+        elif csum == self.calc_checksum(str(bytez[0:6])):
             print '[ OK ]'
         else:
             print '[FAIL]'
+
         print
         print '%3.1f C / %3.1f F' % (temp_c, temp_f)
         print '-'*30
